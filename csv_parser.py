@@ -26,4 +26,4 @@ def parse_text_file(filename, output_file_name):
     return
 
 parse_text_file('CA_discip13.txt', 'CA_discip13.csv')
-parse_text_file('CA_discip12.txt', 'CA_discip13.csv')
+parse_text_file('CA_discip12.txt', 'CA_discip12.csv')
