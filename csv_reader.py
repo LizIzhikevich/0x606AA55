@@ -55,7 +55,7 @@ def subset_by_agg_level(df):
 
 #  export a specified dataframe to csv
 def export_df_to_csv(df, output_filename):
-    df.to_csv(output_filename, index=False, header=False)
+    df.to_csv(output_filename, index=False, header=True)
     return
 
 
@@ -83,10 +83,21 @@ county_data12, district_data12, school_data12, state_data12 = subset_by_agg_leve
 #  print out unique categorical values found in certain columns (sanity check)
 get_unique_values(ca13, verbose=False)
 
+#  choose which columns you want to subset
 indices_ethnicity = [4, 6, 12]
-ethn14 = subset_cols_dataframe(county_data14, indices_ethnicity)
-ethn13 = subset_cols_dataframe(county_data13, indices_ethnicity)
-ethn12 = subset_cols_dataframe(county_data12, indices_ethnicity)
 
-total_ethnic_discip = append_dataframes([ethn14, ethn13, ethn12])
-export_df_to_csv(total_ethnic_discip, 'total_ethnic_discip.csv')
+# ethnicity against county data
+ethnic14county = subset_cols_dataframe(county_data14, indices_ethnicity)
+ethnic13county = subset_cols_dataframe(county_data13, indices_ethnicity)
+ethnic12county = subset_cols_dataframe(county_data12, indices_ethnicity)
+
+ethnic_discip_county = append_dataframes([ethnic14county, ethnic13county, ethnic12county])
+export_df_to_csv(ethnic_discip_county, 'ethnic_discip_county.csv')
+
+indices_all = [4, 3, 5, 6, 7, 8, 9, 10, 11, 12]
+ethnic14state = subset_cols_dataframe(state_data14, indices_all)
+ethnic13state = subset_cols_dataframe(state_data13, indices_all)
+ethnic12state = subset_cols_dataframe(state_data12, indices_all)
+
+ethnic_discip_state = append_dataframes([ethnic14state, ethnic13state, ethnic12state])
+export_df_to_csv(ethnic_discip_state, 'ethnic_discip_state.csv')
