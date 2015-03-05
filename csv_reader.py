@@ -8,6 +8,7 @@ concatenate corresponding subsets together.
 Methods written in here : read_in_file, get_unique_values, subset_by_level,
 export_df_to_csv, subset_cols_dataframe, append_dataframes
 
+Dependency: csv_parser must be run first!
 """
 
 
