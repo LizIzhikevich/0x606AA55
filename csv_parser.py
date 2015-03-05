@@ -17,7 +17,7 @@ def parse_text_file(filename, output_file_name):
         without_commas = without_commas.replace('*', 'NaN')
         without_commas = without_commas.replace('2011-12', '2012')
         without_commas = without_commas.replace('2012-13', '2013')
-        without_commas = without_commas.replace('2013-13', '2014')
+        without_commas = without_commas.replace('2013-14', '2014')
     file = without_commas.split('\n')
     data = []
     for entry in file:
