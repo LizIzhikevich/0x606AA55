@@ -24,9 +24,6 @@ Methods to print out list of unique values in a column (for sanity check):
 # 'OtherDefiance', 'Total', 'Year']
 # note that aggregate level is not spelling correctly!
 
-
-
-
 agg_levels = pd.unique(ca14[column_names[0]])
 names = pd.unique(ca14[column_names[2]])
 disc_type = pd.unique(ca14[column_names[3]])
