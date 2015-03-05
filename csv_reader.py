@@ -1,5 +1,6 @@
 __author__ = 'joanneyeh'
 import pandas as pd
+import matplotlib.pyplot as plt
 
 """
 This program will return subsets of each dataset and
@@ -15,8 +16,9 @@ def read_in_file(filename):
 
 """
 Methods to print out list of unique values in a column (for sanity check):
-
-column_names = list(ca14)
+"""
+# column_names = list(ca14)
+"""
 # list of all headings: ['AggegateLevel', 'Cds', 'Name', 'DisciplineType', 'Ethnicity',
 # 'Weapons', 'Drugs', 'ViolenceWithInjury', 'ViolenceWithoutInjury', 'OtherNonDefiance',
 # 'OtherDefiance', 'Total', 'Year']
@@ -34,10 +36,17 @@ year = pd.unique(ca14[column_names[5]])
 
 
 def subset_by_level(df):
+    column_names = ['AggegateLevel', 'Cds', 'Name', 'DisciplineType', 'Ethnicity', 'Weapons', 'Drugs', 'ViolenceWithInjury', 'ViolenceWithoutInjury', 'OtherNonDefiance', 'OtherDefiance', 'Total', 'Year']
     county_data = df[df.AggegateLevel == 'O']
     district_data = df[df.AggegateLevel == 'D']
     school_data = df[df.AggegateLevel == 'S']
     state_data = df[df.AggegateLevel == 'T']
+    # label columns in subset:
+    county_data.columns = column_names
+    district_data.columns = column_names
+    school_data.columns = column_names
+    state_data.columns = column_names
+
     return county_data, district_data, school_data, state_data
 
 
@@ -47,6 +56,8 @@ def export_df_to_csv(df, output_filename):
 
 
 """ MAIN METHOD HERE """
+
+# warning! subsetted data doesn't contain headers!
 
 ca14 = read_in_file('CA_discip14.csv')
 county_data14, district_data14, school_data14, state_data14 = subset_by_level(ca14)
@@ -80,6 +91,11 @@ export_df_to_csv(state_data13, "state_data13.csv")
 export_df_to_csv(state_data14, "state_data14.csv")
 
 
+def subset_cols_dataframe(df, col_indexes):
+    subset = df.iloc[:, col_indexes]
+    return subset
 
-# exploring the data
-list(county_data14)
+# gets Ethnicity and Drugs of 2014 county data
+ethn14 = subset_cols_dataframe(county_data14, [4, 6])
+ethn13 = subset_cols_dataframe(county_data13, [4, 6])
+ethn12 = subset_cols_dataframe(county_data12, [4, 6])
