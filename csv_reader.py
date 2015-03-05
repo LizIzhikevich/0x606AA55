@@ -70,7 +70,7 @@ def append_dataframes(array_df):
         temp = temp.append(array_df[i])
     return temp
 
-""" MAIN METHOD BEGINS HERE """
+""" MAIN METHODS BEGIN HERE """
 
 #  this chunk of code just takes the input csv and subsets it
 ca14 = read_in_file('CA_discip14.csv')  # 2014 California Data saved in ca14
@@ -86,18 +86,21 @@ get_unique_values(ca13, verbose=False)
 #  choose which columns you want to subset
 indices_ethnicity = [4, 6, 12]
 
-# ethnicity against county data
-ethnic14county = subset_cols_dataframe(county_data14, indices_ethnicity)
-ethnic13county = subset_cols_dataframe(county_data13, indices_ethnicity)
-ethnic12county = subset_cols_dataframe(county_data12, indices_ethnicity)
-
-ethnic_discip_county = append_dataframes([ethnic14county, ethnic13county, ethnic12county])
-export_df_to_csv(ethnic_discip_county, 'ethnic_discip_county.csv')
-
-indices_all = [4, 3, 5, 6, 7, 8, 9, 10, 11, 12]
-ethnic14state = subset_cols_dataframe(state_data14, indices_all)
-ethnic13state = subset_cols_dataframe(state_data13, indices_all)
-ethnic12state = subset_cols_dataframe(state_data12, indices_all)
+# state data w/o agg_level and CID and name
+indices_IDless = [4, 3, 5, 6, 7, 8, 9, 10, 11, 12]
+ethnic14state = subset_cols_dataframe(state_data14, indices_IDless)
+ethnic13state = subset_cols_dataframe(state_data13, indices_IDless)
+ethnic12state = subset_cols_dataframe(state_data12, indices_IDless)
 
 ethnic_discip_state = append_dataframes([ethnic14state, ethnic13state, ethnic12state])
 export_df_to_csv(ethnic_discip_state, 'ethnic_discip_state.csv')
+print(ethnic_discip_state.describe)
+
+# local_data
+indices_w_schoolnames = [1, 2, 11, 12]
+school14 = subset_cols_dataframe(school_data14, indices_w_schoolnames)
+school13 = subset_cols_dataframe(school_data13, indices_w_schoolnames)
+school12 = subset_cols_dataframe(school_data12, indices_w_schoolnames)
+
+school_totals = append_dataframes([school14, school13, school12])
+export_df_to_csv(school_totals, 'school_totals.csv')
