@@ -14,7 +14,10 @@ Usage examples at the end of file
 def parse_text_file(filename, output_file_name):
     with open(filename) as file:
         without_commas = file.read().replace(',', '')
-        without_commas = without_commas.replace('*', '0')
+        # '*' means the data is not available to anonymize schools with small populations
+        without_commas = without_commas.replace('*', 'NaN')
+        without_commas = without_commas.replace('2011-12','2011')
+        without_commas = without_commas.replace('20')
     file = without_commas.split('\n')
     data = []
     for entry in file:
