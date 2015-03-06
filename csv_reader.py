@@ -24,13 +24,11 @@ def get_unique_values(df, verbose=False):
     names = pd.unique(df[column_names[2]])
     discip_type = pd.unique(df[column_names[3]])
     ethnic_groups = pd.unique(df[column_names[4]])
-    year = pd.unique(df[column_names[5]])
     if verbose:
         print("Aggregate Levels are: %s" % agg_levels)
         print("Names of schools are: %s" % names)
         print("Discipline types are: %s" % discip_type)
         print("Ethnic groups are: %s" % ethnic_groups)
-        print("Years are: %s" % year)
     return
 
 
@@ -94,7 +92,9 @@ ethnic12state = subset_cols_dataframe(state_data12, indices_IDless)
 
 ethnic_discip_state = append_dataframes([ethnic14state, ethnic13state, ethnic12state])
 export_df_to_csv(ethnic_discip_state, 'ethnic_discip_state.csv')
-print(ethnic_discip_state.describe)
+# print(ethnic_discip_state.describe)
+group_year_ethnicity = ethnic_discip_state.groupby(['Year', 'Ethnicity']).sum()
+export_df_to_csv(group_year_ethnicity, 'group_year_ethnicity.csv')
 
 # local_data
 indices_w_schoolnames = [1, 2, 11, 12]
@@ -104,3 +104,4 @@ school12 = subset_cols_dataframe(school_data12, indices_w_schoolnames)
 
 school_totals = append_dataframes([school14, school13, school12])
 export_df_to_csv(school_totals, 'school_totals.csv')
+
